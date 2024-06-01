@@ -5,20 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('new btn pressed');
     const res = await fetch('/api/create_new_bin', { method: 'POST' });
     const id = await res.json();
-    console.log({ res, id });
+    // console.log({ res, id });
     // Change URL bar
     const path = window.location.href;
+    // console.log('This is the path', path)
     if (path.includes('www.')) {
       window.history.replaceState(
         null,
         'title**',
-        `https://www.captainwebhook.xyz/public/bin/${id}`,
+        `https://captainwebhook.bseanpowell.com/public/bin/${id}`,
       );
     } else {
       window.history.replaceState(
         null,
         'title**',
-        `https://captainwebhook.xyz/public/bin/${id}`,
+        `https://captainwebhook.bseanpowell.com/public/bin/${id}`,
       );
     }
     populateRequests();
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const binId = path.split('/').at(-2);
     const requestId = btn.id;
     const response = await fetch(
-      `https://captainwebhook.xyz/api/${binId}/requests/${requestId}`,
+      `https://captainwebhook.bseanpowell.com/api/${binId}/requests/${requestId}`,
     );
     const data = await response.json();
     console.log(data, data.body)
@@ -340,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const prompt = document.querySelector('.request-details').textContent;
         const p = document.querySelector('.pirate-talk')
         p.textContent = 'Ahoy matey! 🏴‍☠️ Hold yer horses and wait fer a response from the pirate! 🏴‍☠️🦜⚓'
-        const response = await fetch('https://captainwebhook.xyz/api/ai', {
+        const response = await fetch('https://captainwebhook.bseanpowell.com/api/ai', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -366,9 +367,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(window.location.href);
     const path = window.location.href;
     const binId = path.split('/').at(-2);
+    if (binId.includes('bseanpowell')) {
+        return
+    }
     console.log(path, binId);
     console.log('right before request');
-    const res = await fetch(`https://captainwebhook.xyz/api/${binId}`);
+    const res = await fetch(`https://captainwebhook.bseanpowell.com/api/${binId}`);
     const requests = await res.json();
     document.querySelector('.request-details-grid').innerHTML = '';
 
