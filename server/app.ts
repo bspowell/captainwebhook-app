@@ -13,7 +13,7 @@ import {
 import fetchOpenAIOutput from './ai';
 
 const app = express();
-const port = 3000;
+const port = 3001;
 
 app.use(cors());
 app.use(express.json());
@@ -49,6 +49,7 @@ app.all('/bin/:bin_id', async (req, res) => {
 });
 
 app.post('/api/ai', async (req, res) => {
+    console.log('Im in the route')
   try {
     // console.log(req.body);
     const text = await fetchOpenAIOutput(req.body.prompt);
@@ -58,14 +59,6 @@ app.post('/api/ai', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-// app.get('/public/bin/:bin_id', (_, res) => {
-//   console.log('redirected');
-//   res.sendFile(path.join(__dirname, '../client/public', 'index.html'));
-// });
-
-// app.get('/', (req, res) => {
-// });
 
 app.post('/api/create_new_bin', async (_, res) => {
   // create new bin id
